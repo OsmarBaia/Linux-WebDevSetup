@@ -64,10 +64,58 @@ docker-compose
 sudo source ~/.zshrc
 ```
 
-# References
+### REFERENCES
 - [Zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
 - [Oh my ZSH](https://github.com/ohmyzsh/ohmyzsh)
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [zsh-fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting)
 - [zsh-autocomplete](https://github.com/marlonrichert/zsh-autocomplete)
+
+## Git & GitHub
+
+1. Open terminal
+2. Set Git UserName
+```
+git config --global user.name "you name"
+```
+4. Set Git UserEmail
+```
+git config --global user.email "you github email"
+```
+6. Generate New SSH
+```
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+7. Add the SSH key to ssh-agent:
+```
+ssh-add ~/.ssh/id_ed25519
+```
+8. Open Generated SSH Key
+```
+cat ~/.ssh/id_ed25519.pub
+```
+Select and copy the content, `ctrl+shift+c`.
+
+9. Add SSH Key to Github
+   + Loogin / Siggin Github
+   + Account Settings
+   + SSH & GPG keys
+   + New SSh Key
+   + Title: Name it
+   + Type: Authentication
+   + Contente: Paste you SSH Key
+
+10. Test Conection:
+```
+ssh -T git@github.com
+```
++ Comparer the fingertip against: `SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU`. if equal, type yes.
++ Response should be `Hi, UserName`
+
+### REFERENCES
+[Set up Git](https://docs.github.com/en/get-started/quickstart/set-up-git)
+[Set user name](https://docs.github.com/en/get-started/getting-started-with-git/setting-your-username-in-git)
+[Set User email](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address)
+[Generating & Adding new SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+[Test SSH Connection](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection)
