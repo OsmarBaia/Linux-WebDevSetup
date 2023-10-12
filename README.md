@@ -103,7 +103,7 @@ Select and copy the content, `ctrl+shift+c`.
    + SSH & GPG keys
    + New SSh Key
    + Title: Name it
-   + Type: Authentication
+   + Type: Authenticatio
    + Contente: Paste you SSH Key
 
 10. Test Conection:
