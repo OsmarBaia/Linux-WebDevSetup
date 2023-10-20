@@ -1,35 +1,65 @@
 # Web development environment on Ubuntu / PopOS
 
 ## Essentials
+
 ```
-sudo apt install build-dep build-essential curl wget git 
+sudo apt install build-dep build-essential curl wget git python3-dev python3-pip python3-setuptools
+```
+
++ thefuck terminal plugin
+```
+pip3 install thefuck
+```
+
++ fzf terminal plugin
+```
+sudo apt-get install fzf
 ```
 
 ## Zsh & Oh My Zsh
+
 1. Instal ZSH
 ```
 sudo apt install zsh
 ```
+
 2. Turn it default bash
 ```
 sudo chsh -s $(which zsh)
 ```
-3. Install Oh My Zsh
+
+3. Install ZSH Plugins
+```
+ sudo apt-get install zsh-syntax-highlighting zsh-autosuggestions
+```
+
+4. Install Oh My Zsh
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
-4. Install Plugins
+
+5. Install Oh-My-Zsh plugins
+
++ zsh-syntax-highlighting
 ```
- sudo apt install zsh-syntax-highlighting zsh-autosuggestions fzf thefuck 
-```   
-+ zsh-fast-syntax-highlighting plugin
+ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
++ zsh-autosuggestions
+```
+ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```  
+
++ zsh-fast-syntax-highlighting
 ```
 git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
 ```
-+ zsh-autocomplete plugin
+
++ zsh-autocomplete
 ```
 git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
 ```
+
 5. Enable Plugins  
 ```
 sudo nano ~/.zshrc  
@@ -111,7 +141,7 @@ Select and copy the content, `ctrl+shift+c`.
 ssh -T git@github.com
 ```
 + Comparer the fingertip against: `SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU`. if equal, type yes.
-+ Response should be `Hi, UserName`
++ Response should be `Hi, UserName...`
 
 ### REFERENCES
 + [Set up Git](https://docs.github.com/en/get-started/quickstart/set-up-git)
