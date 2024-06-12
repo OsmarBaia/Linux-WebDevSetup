@@ -1,9 +1,24 @@
-# Web development environment on Ubuntu / PopOS
+# Web development environment on Ubuntu / Debian
 
 ## Essentials
+```
+sudo apt install -y -f build-essential curl wget git gdebi fuse3 zsh
+```
+
+### Turn ZSH the default bash
+```
+chsh -s $(which zsh)
+```
+
+Close The terminal and open again
 
 ```
-sudo apt install build-dep build-essential curl wget git python3-dev python3-pip python3-setuptools
+sudo apt install -y -f micro bat lsd python3-dev python3-pip python3-setuptools openjdk-8-jdk openjdk-21-jdk
+```
+
+### Oh-my-zsh
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
 + thefuck terminal plugin
@@ -16,17 +31,10 @@ pip3 install thefuck
 sudo apt-get install fzf
 ```
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
 ## Zsh & Oh My Zsh
-
-1. Instal ZSH
-```
-sudo apt install zsh
-```
-
-2. Turn it default bash
-```
-sudo chsh -s $(which zsh)
-```
 
 3. Install ZSH Plugins
 ```
@@ -34,9 +42,7 @@ sudo chsh -s $(which zsh)
 ```
 
 4. Install Oh My Zsh
-```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
+
 
 5. Install Oh-My-Zsh plugins
 
