@@ -2,103 +2,138 @@
 
 ## Essentials
 ```
-sudo apt install -y -f build-essential curl wget git gdebi fuse3 zsh
+sudo apt install -y -f build-essential curl wget git gdebi fuse3 gpg micro zsh bat fzf gnome-tweaks
 ```
++ Install EZA
+  ```
+  sudo mkdir -p /etc/apt/keyrings
+  wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+  echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+  sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+  sudo apt update
+  sudo apt install -y eza
+  ```
++ Fix Bat
+  ```
+  mkdir -p ~/.local/bin
+  ln -s /usr/bin/batcat ~/.local/bin/bat
+  ```
++ theFuck
+  ```
+  sudo apt install -y -f python3 python3-pip python3-dev python3-setuptools
+  pip3 install thefuck --user
+  ```
++ LazyGit
+  ```
+  LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+  curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+  tar xf lazygit.tar.gz lazygit
+  sudo install lazygit /usr/local/bin
+  ```
 
 ### Turn ZSH the default bash
+1. Type or paste on the console: 
 ```
 chsh -s $(which zsh)
 ```
-
-Close The terminal and open again
-
-```
-sudo apt install -y -f micro bat lsd python3-dev python3-pip python3-setuptools openjdk-8-jdk openjdk-21-jdk
-```
-
-### Oh-my-zsh
+2. Close The terminal and open again 
+3. Choose ZSH Setting (2. Populate with...)
+4. Install Oh-My-Zsh
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
-
-+ thefuck terminal plugin
-```
-pip3 install thefuck
-```
-
-+ fzf terminal plugin
-```
-sudo apt-get install fzf
-```
-
-# Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
-
-## Zsh & Oh My Zsh
-
-3. Install ZSH Plugins
-```
- sudo apt-get install zsh-syntax-highlighting zsh-autosuggestions
-```
-
-4. Install Oh My Zsh
-
-
-5. Install Oh-My-Zsh plugins
+5. Install Zsh Plugins
 
 + zsh-syntax-highlighting
-```
- git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-```
-
+  ```
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  ```
 + zsh-autosuggestions
-```
- git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-```  
+  ```
+   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  ```  
 
 + zsh-fast-syntax-highlighting
-```
-git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
-```
+  ```
+  git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
+  ```
 
 + zsh-autocomplete
-```
-git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
-```
+  ```
+  git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
+  ```
 
-5. Enable Plugins  
++ zsh-bat
+  ```
+  git clone https://github.com/fdellwing/zsh-bat.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-bat
+  ```
+
++ zsh-eza
+  ```
+  git clone https://github.com/z-shell/zsh-eza.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-eza
+  ```
+  
++ asdf
+  ```
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+  ```
+  or
+  ```
+  git clone https://github.com/asdf-vm/asdf.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/asdf
+  ```
+
++ zsh-interactive-cd
+  ```
+  git clone https://github.com/mrjohannchang/zsh-interactive-cd.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-interactive-cd
+  ```
+
+6. Enable Plugins  
 ```
 sudo nano ~/.zshrc  
 ```
 + Press `F6` then type `plugins`
-+ Erase the line and paste this one:
-```
-plugins=(
-git 
-zsh-autosuggestions 
-zsh-syntax-highlighting 
-fast-syntax-highlighting 
-colored-man-pages 
-command-not-found 
-zsh-autocomplete
-fzf 
-thefuck 
-ubuntu 
-npm 
-dotenv 
-gulp 
-grunt
-composer 
-laravel 
-docker
-docker-compose
-)
-
-```
+  ```
+  plugins=(git zsh-eza extract colored-man-pages ubuntu command-not-found thefuck fzf asdf pip pipenv gradle spring gulp grunt npm yarn ng dotenv composer laravel docker docker-compose zsh-syntax-highlighting zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete)
+  ```  
++ Set up zsh-interactive-cd
+  ```
+  # Set up zsh-interactive-cd
+  source  /home/osmar/.oh-my-zsh/custom/plugins/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
+  ```
+  
++ Press `F6` then type `themes`
+  ```
+  ZSH_THEME="af-magic"
+  ```
 + Source it
 ```
-sudo source ~/.zshrc
+source ~/.zshrc
 ```
+
+### Nerd Fonts
++ Download a Font.zip
++ Donwload Patcher.zip
++ Add Dependecy
+```
+sudo apt install fontforge python3 python3-fontforge python3-argcomplete python-is-python3
+pip install argparse
+```
+* Extract the patcher.zip
+* Extact the Font.zip
+* Move the Font folder to Patcher folder
+* Make a Python install.py inside patcher folder:
+  ```
+  import os
+  import subprocess
+  # Change the Dir name to your font's folder name
+  fontsDir = "JetBrainsMono"
+  # Change the parameters bellow as needed
+  command = "./font-patcher {}" 
+  fontFiles = [f for f in os.listdir(fontsDir) if os.path.isfile(os.path.join(fontsDir, f))]
+  for font in fontFiles:
+      fontPath = os.path.join(fontsDir, font)
+      subprocess.run(command.format(fontPath), shell=True)
+  ```
 
 ### REFERENCES
 - [Zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
