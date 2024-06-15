@@ -1,49 +1,64 @@
-# Web development environment on Ubuntu / Debian
-
-## Essentials
-```
-sudo apt install -y -f build-essential curl wget git gdebi fuse3 gpg micro zsh bat fzf gnome-tweaks
-```
-+ Install EZA
+# WLS for Development
+## Installing WSL
++ Open powershell as admin
   ```
-  sudo mkdir -p /etc/apt/keyrings
-  wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
-  echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
-  sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
-  sudo apt update
-  sudo apt install -y eza
+  wsl – -install
   ```
-+ Fix Bat
++ Reboot
   ```
-  mkdir -p ~/.local/bin
-  ln -s /usr/bin/batcat ~/.local/bin/bat
+  Restart-Computer
   ```
-+ theFuck
+  
+## WSL Essentials
++ Open wsl and access root
   ```
-  sudo apt install -y -f python3 python3-pip python3-dev python3-setuptools
-  pip3 install thefuck --user
+  cd /
   ```
-+ LazyGit
++ Install main dependencies
   ```
-  LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-  curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-  tar xf lazygit.tar.gz lazygit
-  sudo install lazygit /usr/local/bin
+  sudo apt install -f git curl wget build-essential
   ```
 
-### Turn ZSH the default bash
-1. Type or paste on the console: 
-```
-chsh -s $(which zsh)
-```
-2. Close The terminal and open again 
-3. Choose ZSH Setting (2. Populate with...)
-4. Install Oh-My-Zsh
-```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-5. Install Zsh Plugins
+## Zsh & Oh-My-Zsh
++ zsh
+  ```
+  sudo apt install -f zsh
+  chsh -s $(which zsh)
+  ```
 
++ Oh-My-Zsh
+  ```
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  ```
+
+## asdf - SDK version manager
+```
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+```
+
+## Terminal upgrades
++ Editors
+  ```
+  sudo apt-get install -f micro bat
+  ```
++ Eza
+  + Dependencies
+    ```
+    sudo apt install -f gpg
+    ```
+    
+  + Installation
+    ```
+    sudo mkdir -p /etc/apt/keyrings
+    wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+    sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+    sudo apt update
+    sudo apt install -y eza
+    ```
+
+## Zsh plugins
+### Installations
 + zsh-syntax-highlighting
   ```
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -72,76 +87,117 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
   ```
   git clone https://github.com/z-shell/zsh-eza.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-eza
   ```
-  
-+ asdf
-  ```
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-  ```
-  or
-  ```
-  git clone https://github.com/asdf-vm/asdf.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/asdf
-  ```
 
-+ zsh-interactive-cd
+### Enable Plugins  
++ Open zsh config file
   ```
-  git clone https://github.com/mrjohannchang/zsh-interactive-cd.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-interactive-cd
+  sudo micro ~/.zshrc  
   ```
-
-6. Enable Plugins  
-```
-sudo nano ~/.zshrc  
-```
-+ Press `F6` then type `plugins`
-  ```
-  plugins=(git zsh-eza extract colored-man-pages ubuntu command-not-found thefuck fzf asdf pip pipenv gradle spring gulp grunt npm yarn ng dotenv composer laravel docker docker-compose zsh-syntax-highlighting zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete)
-  ```  
-+ Set up zsh-interactive-cd
-  ```
-  # Set up zsh-interactive-cd
-  source  /home/osmar/.oh-my-zsh/custom/plugins/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
-  ```
-  
-+ Press `F6` then type `themes`
++ Shearch for `ZSH_THEME`
   ```
   ZSH_THEME="af-magic"
+  ```  
++ Shearch for `plugins`
   ```
-+ Source it
-```
-source ~/.zshrc
-```
+  plugins=(git ubuntu extract asdf zsh-eza command-not-found colored-man-pages pip pipenv gradle spring gulp grunt npm yarn ng dotenv composer laravel docker docker-compose zsh-syntax-highlighting zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete)
+  ```
 
-### Nerd Fonts
-+ Download a Font.zip
-+ Donwload Patcher.zip
-+ Add Dependecy
-```
-sudo apt install fontforge python3 python3-fontforge python3-argcomplete python-is-python3
-pip install argparse
-```
-* Extract the patcher.zip
-* Extact the Font.zip
-* Move the Font folder to Patcher folder
-* Make a Python install.py inside patcher folder:
+### Making aliases 
++ Eza
   ```
-  import os
-  import subprocess
-  # Change the Dir name to your font's folder name
-  fontsDir = "JetBrainsMono"
-  # Change the parameters bellow as needed
-  command = "./font-patcher {}" 
-  fontFiles = [f for f in os.listdir(fontsDir) if os.path.isfile(os.path.join(fontsDir, f))]
-  for font in fontFiles:
-      fontPath = os.path.join(fontsDir, font)
-      subprocess.run(command.format(fontPath), shell=True)
+  # 'eza' parameters definition
+  eza_params=('--git' '--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
+  
+  # 'ls' commands aliases and variants using 'eza'
+  alias ls='eza $eza_params'
+  alias l='eza --git-ignore $eza_params'
+  alias ll='eza --all --header --long $eza_params'
+  alias llm='eza --all --header --long --sort=modified $eza_params'
+  alias la='eza -lbhHigUmuSa'
+  alias lx='eza -lbhHigUmuSa@'
+  alias lt='eza --tree $eza_params'
+  alias tree='eza --tree $eza_params'
+  
+  # Enable auto list directories on cd
+  export AUTOCD=1
   ```
++ Bat
+  ```
+   # 'Bat' aliases
+   alias cat="batcat"
+   alias bat="batcat"
+  ```
++ Save and Quit
++ Source it
+  ```
+  source ~/.zshrc
+  ```
+
+## Installing SDK
++ In case depencies is requested
+  ```
+  sudo apt install -f
+  ```
++ Adding version managers
+  + add nodejs version manager
+    ```
+    asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+    ```
+  + java
+    + add java version manager
+    ```
+    asdf plugin-add java https://github.com/halcyon/asdf-java.git
+    ```
+  + python
+    + add python version manager
+    ```
+    asdf plugin-add python
+    ```
+  + php
+    + add php version manager
+    ```
+    asdf plugin-add php https://github.com/asdf-community/asdf-php.git
+    ```
++ Adding SDKs
+  + Install SDK latest version:
+    ```
+    asdf install java latest:adoptopenjdk-8
+    ```
+  + Install SDK specific version:
+    + List available version: 
+      ```
+      asdf list-all java
+      ```
+    + Install a candidate:
+      ```
+      asdf install java adoptopenjdk-11.0.16+8
+      ```
++ Set SDK a Version
+  + Global
+    Global defaults are managed in $HOME/.tool-versions. Set a global version with:
+    ```
+    asdf global java latest
+    ```
+  + Local
+    Local versions are defined in the $PWD/.tool-versions file (your current working directory). Usually, this will be the Git repository for a project. When in your desired directory execute:
+    ```
+    asdf local java adoptopenjdk-11.0.16+8
+    ```
 
 ### REFERENCES
+- [wsl](https://learn.microsoft.com/pt-br/windows/wsl/install)
 - [Zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
 - [Oh my ZSH](https://github.com/ohmyzsh/ohmyzsh)
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [zsh-fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting)
 - [zsh-autocomplete](https://github.com/marlonrichert/zsh-autocomplete)
+- [asdf - guide](https://asdf-vm.com/guide/getting-started.html)
+- [asdf - plugins](https://github.com/asdf-community)
+- [eza](https://github.com/z-shell/zsh-eza)
+- [bat](https://github.com/sharkdp/bat?ref=catalins.tech)
+- [micro](https://github.com/zyedidia/micro#installation)
+
 
 ## Git & GitHub
 
@@ -191,41 +247,6 @@ ssh -T git@github.com
 + [Generating & Adding new SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 + [Test SSH Connection](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection)
 
-## Node
-
-1. Open terminal
-2. Download and import the Nodesource GPG key
-```
-sudo apt update && sudo apt-get install -y ca-certificates curl gnupg
-```
-```
-sudo mkdir -p /etc/apt/keyrings
-```
-```
-curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-```
-
-3. Create deb repository
-```
-NODE_MAJOR=20
-echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-```
-
-> Optional: NODE_MAJOR can be changed depending on the version you need.
->
-> NODE_MAJOR=16
->
-> NODE_MAJOR=18
->
-> NODE_MAJOR=20
-
-4. Run Update and Install
-```
-sudo apt update && sudo apt install nodejs -y
-```
-
-### REFERENCES
-[Node Installation](https://github.com/nodesource/distributions)
 
 ## Front End - React Stack
 1. Prettier - Code Formatter
