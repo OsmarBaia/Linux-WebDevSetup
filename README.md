@@ -248,6 +248,19 @@ ssh -T git@github.com
 + Comparer the fingertip against: `SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU`. if equal, type yes.
 + Response should be `Hi, UserName...`
 
+11. Ensuring ssh-agent is running
+    + Open zsh/bash config
+      ```
+      sudo micro ~/.zshrc  
+      ```
+    + Add to the end
+      ```
+      eval $(ssh-agent -s)
+      ```
+    + Source it
+      ```
+      source ~/.zshrc
+      ```
 ### REFERENCES
 + [Set up Git](https://docs.github.com/en/get-started/quickstart/set-up-git)
 + [Set user name](https://docs.github.com/en/get-started/getting-started-with-git/setting-your-username-in-git)
