@@ -14,6 +14,10 @@
   ```
   cd /
   ```
++ Update & Upgrade
+  ```
+  sudo apt update && sudo apt upgade && sudo apt install -f
+  ```
 + Install main dependencies
   ```
   sudo apt install -f git curl wget build-essential
