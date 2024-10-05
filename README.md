@@ -104,7 +104,7 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.1
   ```
 + Search for `ZSH_THEME`
   ```
-  ZSH_THEME="af-magic"
+  ZSH_THEME="jonathan"
   ```  
 + Search for `plugins`
   ```
