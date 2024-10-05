@@ -1,4 +1,4 @@
-# WLS for Development
+# Linux for Development Debian/WSL
 ## Installing WSL
 + Open powershell as admin
   ```
@@ -9,8 +9,8 @@
   Restart-Computer
   ```
   
-## WSL Essentials
-+ Open wsl and access root
+## Essentials
++ Open Debian/WSL and access root
   ```
   cd /
   ```
@@ -20,7 +20,7 @@
   ```
 + Install main dependencies
   ```
-  sudo apt install git curl wget build-essential python-is-python3
+  sudo apt install git curl wget git p7zip-full build-essential python3 python-is-python3
   ```
 
 ## Zsh & Oh-My-Zsh
@@ -42,7 +42,7 @@
 
 ## asdf - SDK version manager
 ```
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.1
 ```
 
 ## Terminal Upgrades
