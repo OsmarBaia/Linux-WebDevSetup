@@ -20,13 +20,17 @@
   ```
 + Install main dependencies
   ```
-  sudo apt install git curl wget git p7zip-full build-essential python3 python-is-python3
+  sudo apt install git curl wget git p7zip-full build-essential python3 python-is-python3 libfuse2
+  ```
++ Video
+  ```
+  sudo apt-get install ubuntu-restricted-extras gstreamer1.0-plugins-ugly
   ```
 
 ## Zsh & Oh-My-Zsh
 + zsh
   ```
-  sudo apt install zsh
+  sudo apt install zsh zsh-doc
   ```
 + Set Zsh as default Shell
   ```
